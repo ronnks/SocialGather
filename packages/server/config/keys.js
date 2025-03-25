@@ -10,11 +10,13 @@ module.exports = {
      *
      * WARNING: THE DATABASE WILL NOT SEED PROPERTY IF YOU LEAVE THE &w=majority FROM YOUR COPIED CONNECTION
      * STRING
+     *
+     * //`mongodb+srv://ronnskronald99:1Kc4XoQJqOWccMlO@cluster0.whnaqpp.mongodb.net/snippetsDB?retryWrites=true`, // DID YOU DELETE THE &w=majority
      */
 
     url:
       process.env.MONGODB_URI ||
-      `mongodb+srv://ronnskronald99:1Kc4XoQJqOWccMlO@cluster0.whnaqpp.mongodb.net/snippetsDB?retryWrites=true`, // DID YOU DELETE THE &w=majority
+      `mongodb+srv://ronnskronald99:sWkDauCCdQIWDKVo@snippetscluster.wzril1y.mongodb.net/?retryWrites=true`,
     /**
      * IF YOUR DATABASE DOES NOT SEED BECAUSE YOU LEFT &w=majority YOU WILL BE PUBLICLY SHAMED
      *

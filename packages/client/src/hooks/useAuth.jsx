@@ -1,7 +1,6 @@
 import { useReducer, useEffect, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api.utils.js";
-import { validateEmail, validatePassword } from "../utils/formValidation.js";
 
 const initialState = {
   isAuthenticated: null,
