@@ -5,8 +5,6 @@ import "./RegisterPage.scss";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { LandingHeader, LoadingSpinner } from "../../components";
 import { setAuthToken } from "../../utils/api.utils";
-import * as yup from "yup";
-import { useFormik } from "formik";
 
 const initialState = {
   username: "",
@@ -15,19 +13,6 @@ const initialState = {
   isSubmitting: false,
   errorMessage: null,
 };
-
-const validationSchema = yup.object().shape({
-  username: yup
-    .string()
-    .required()
-    .matches(/(?=.*[0-9])/),
-  email: yup.string().email().required(),
-  password: yup
-    .string()
-    .required()
-    .min(10, "Password is too short - should be 8 characters minimum.")
-    .matches(/(?=.*[0-9])/, "Password must contain a number."),
-});
 
 const RegisterPage = () => {
   const [data, setData] = useState(initialState);
@@ -96,23 +81,12 @@ const RegisterPage = () => {
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      username: data.username,
-      email: data.email,
-      password: data.password,
-    },
-    validationSchema,
-    handleChange: handleInputChange(),
-    onSubmit: handleSignup(),
-  });
-
   return (
     <div style={{ overflow: "auto", height: "100vh" }}>
       <LandingHeader />
       <Container className="mb-5">
         <Row className="pt-5 justify-content-center">
-          <Form style={{ width: "350px" }} onSubmit={formik.handleSubmit}>
+          <Form style={{ width: "350px" }} onSubmit={handleSignup}>
             <h3 className="mb-3">Join Us! </h3>
             <Form.Group controlId="username-register">
               <Form.Label>Username</Form.Label>
@@ -122,10 +96,8 @@ const RegisterPage = () => {
                   type="text"
                   name="username"
                   placeholder="Username"
-                  aria-describedby="inputGroupPrepend"
-                  required
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
+                  value={data.username}
+                  onChange={handleInputChange}
                 />
               </InputGroup>
             </Form.Group>
@@ -135,9 +107,8 @@ const RegisterPage = () => {
                 type="text"
                 name="email"
                 placeholder="Email"
-                required
-                value={formik.values.email}
-                onChange={formik.handleChange}
+                value={data.email}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group>
@@ -145,10 +116,9 @@ const RegisterPage = () => {
               <Form.Control
                 type="password"
                 name="password"
-                required
                 id="inputPasswordRegister"
-                value={formik.values.password}
-                onChange={formik.handleChange}
+                value={data.password}
+                onChange={handleInputChange}
               />
             </Form.Group>
             {data.errorMessage && (
