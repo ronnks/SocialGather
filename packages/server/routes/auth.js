@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { User } from "../models";
 import keys from "../config/keys";
 import jwt from "jsonwebtoken";
+import { validate } from "../utils/validation";
 
 const router = express.Router();
 
@@ -13,9 +14,7 @@ router.route("/").get((req, res, next) => {
 router.post("/signup", async (req, res) => {
   const { username, password, profile_image } = req.body;
 
-  if (!password || !username) {
-    return res.status(422).json({ error: "please add all the fields" });
-  }
+  validate(req, res);
 
   User.findOne({ username: username })
     .then((savedUser) => {
