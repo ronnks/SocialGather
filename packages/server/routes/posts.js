@@ -62,7 +62,14 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
   /**
    * Your Code Here
    */
-  res.status(404).json("Placeholder response");
+  const { user } = req;
+
+  try {
+    await Post.deleteOne({ author: user });
+  } catch (error) {
+    res.status(404).json("Placeholder response");
+    next(error);
+  }
 });
 
 router.all("/like/:postId", requireAuth, async (req, res) => {

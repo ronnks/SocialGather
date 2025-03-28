@@ -48,8 +48,9 @@ const UserDetailPage = () => {
     event.preventDefault();
     event.stopPropagation();
     const form = event.currentTarget;
-    // handle invalid or empty form
+
     if (form.checkValidity() === false) {
+      toast.error("New Password is required");
       setValidated(true);
       return;
     }
@@ -60,12 +61,16 @@ const UserDetailPage = () => {
     });
     try {
       // write code to call edit user endpoint 'users/:id'
+      const editUser = api.put(`/users/${params.id}`, {
+        password: data.password,
+      });
       const {
         user: { uid, username },
       } = state;
       console.log(data.password, uid, username);
       setValidated(false);
       // don't forget to update loading state and alert success
+      setLoading(false);
     } catch (error) {
       setData({
         ...data,

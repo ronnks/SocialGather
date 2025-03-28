@@ -32,6 +32,7 @@ const Feed = () => {
   const handlePostSubmit = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
+
     if (form.checkValidity() === false) {
       toast.error("Post text is required");
       setValidated(true);

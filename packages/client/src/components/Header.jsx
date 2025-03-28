@@ -47,6 +47,7 @@ export default function Header() {
                 onClick={() => signout()}
                 style={{
                   border: "none",
+
                   marginRight: "50px",
                   color: "#E5E1DF",
                 }}

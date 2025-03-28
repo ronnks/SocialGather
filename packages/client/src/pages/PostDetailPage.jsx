@@ -34,6 +34,7 @@ const PostDetailPage = () => {
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
+
     if (form.checkValidity() === false) {
       toast.error("Comment text is required");
       setValidated(true);
