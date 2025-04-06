@@ -1,9 +1,9 @@
 import express from "express";
-const router = express.Router();
+const postsRouter = express.Router();
 import { Post } from "../models";
 import { requireAuth } from "../middleware";
 
-router.get("/", async (req, res) => {
+postsRouter.get("/", async (req, res) => {
   const populateQuery = [
     { path: "author", select: ["username", "profile_image"] },
     {
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
   res.json(posts.map((post) => post.toJSON()));
 });
 
-router.post("/", requireAuth, async (req, res, next) => {
+postsRouter.post("/", requireAuth, async (req, res, next) => {
   const { text } = req.body;
   const { user } = req;
 
@@ -40,7 +40,7 @@ router.post("/", requireAuth, async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+postsRouter.get("/:id", async (req, res) => {
   const populateQuery = [
     { path: "author", select: ["username", "profile_image"] },
     {
@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", requireAuth, async (req, res, next) => {
+postsRouter.delete("/:id", requireAuth, async (req, res, next) => {
   /**
    * Your Code Here
    */
@@ -72,7 +72,7 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
   }
 });
 
-router.all("/like/:postId", requireAuth, async (req, res) => {
+postsRouter.all("/like/:postId", requireAuth, async (req, res) => {
   const { postId } = req.params;
   const { user } = req;
   const post = await Post.findOne({ _id: postId });
@@ -99,7 +99,7 @@ router.all("/like/:postId", requireAuth, async (req, res) => {
   }
 });
 
-router.put("/comments", async (req, res, next) => {
+postsRouter.put("/comments", async (req, res, next) => {
   const { text, userId, postId } = req.body;
   const comment = {
     text: text,
@@ -127,4 +127,4 @@ router.put("/comments", async (req, res, next) => {
     });
 });
 
-module.exports = router;
+module.exports = postsRouter;

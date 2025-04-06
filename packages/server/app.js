@@ -6,7 +6,7 @@ import logger from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import keys from "./config/keys";
-import router from "./routes";
+import router from "../server/routes/index";
 import { requestLogger, errorHandler } from "./middleware";
 import seedDatabase from "./seedDatabase";
 

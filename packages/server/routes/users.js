@@ -3,10 +3,11 @@ import bcrypt from "bcryptjs";
 import { User } from "../models";
 import { requireAuth } from "../middleware";
 
-const router = express.Router();
-
-router
+const userRouter = express.Router();
+////not completed
+userRouter
   .route("/:username")
+  .get()
   /**
    * Your GET route here
    */
@@ -59,7 +60,7 @@ router
     }
   });
 
-router.route("/:username/avatar").put(requireAuth, async (req, res) => {
+userRouter.route("/:username/avatar").put(requireAuth, async (req, res) => {
   const { username } = req.params;
   const { profile_image } = req.body;
 
@@ -78,4 +79,4 @@ router.route("/:username/avatar").put(requireAuth, async (req, res) => {
   res.json(user.toJSON());
 });
 
-module.exports = router;
+module.exports = userRouter;

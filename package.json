@@ -15,5 +15,8 @@
     "crypto": "^1.0.1",
     "formik": "^2.4.6",
     "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0"
   }
 }

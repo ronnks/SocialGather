@@ -5,13 +5,13 @@ import keys from "../config/keys";
 import jwt from "jsonwebtoken";
 import { validate } from "../utils/validation";
 
-const router = express.Router();
+const authRouter = express.Router();
 
-router.route("/").get((req, res, next) => {
+authRouter.route("/").get((req, res, next) => {
   res.send("auth endpoint");
 });
 
-router.post("/signup", async (req, res) => {
+authRouter.post("/signup", async (req, res) => {
   const { username, password, profile_image } = req.body;
 
   validate(req, res);
@@ -45,7 +45,7 @@ router.post("/signup", async (req, res) => {
     });
 });
 
-router.post("/signin", async (req, res) => {
+authRouter.post("/signin", async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(422).json({ error: "missing username or password" });
@@ -72,4 +72,4 @@ router.post("/signin", async (req, res) => {
     .send({ token, username, uid: user.id, profile_image: user.profile_image });
 });
 
-module.exports = router;
+module.exports = authRouter;

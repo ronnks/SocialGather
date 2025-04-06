@@ -59,25 +59,22 @@ const UserDetailPage = () => {
       isSubmitting: true,
       errorMessage: null,
     });
-    try {
+
+    api
       // write code to call edit user endpoint 'users/:id'
-      const editUser = api.put(`/users/${params.id}`, {
+      .put("user/id", {
         password: data.password,
-      });
-      const {
-        user: { uid, username },
-      } = state;
-      console.log(data.password, uid, username);
-      setValidated(false);
-      // don't forget to update loading state and alert success
-      setLoading(false);
-    } catch (error) {
-      setData({
-        ...data,
-        isSubmitting: false,
-        errorMessage: error.message,
-      });
-    }
+      })
+      .then(
+        () => {
+          // don't forget to update loading state and alert success
+          setData(initialState);
+          setValidated(false);
+        },
+        (error) => {
+          console.log("Axios error", error);
+        }
+      );
   };
 
   if (!isAuthenticated) {
